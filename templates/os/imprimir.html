@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<meta charset="UTF-8">
+
+<title>OS #{{ os.id }}</title>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+</head>
+
+<body class="container mt-5">
+
+<h2>Ordem de Serviço #{{ os.id }}</h2>
+
+<hr>
+
+<p>
+<strong>Cliente:</strong>
+{{ cliente.nome }}
+</p>
+
+<p>
+<strong>Equipamento:</strong>
+{{ equipamento.nome }}
+</p>
+
+<p>
+<strong>Defeito:</strong>
+{{ os.defeito }}
+</p>
+
+<p>
+<strong>Diagnóstico:</strong>
+{{ os.diagnostico }}
+</p>
+
+<p>
+<strong>Status:</strong>
+{{ os.status }}
+</p>
+
+<p>
+<strong>Valor:</strong>
+R$ {{ os.valor }}
+</p>
+
+<p>
+<strong>Observações:</strong>
+<br>
+{{ os.observacoes }}
+</p>
+
+<hr>
+
+<button
+onclick="window.print()"
+class="btn btn-primary">
+
+Imprimir
+
+</button>
+
+</body>
+</html>

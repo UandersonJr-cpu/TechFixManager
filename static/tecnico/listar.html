@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+
+{% block titulo %}
+Área Técnica
+{% endblock %}
+
+{% block conteudo %}
+
+<div class="d-flex justify-content-between mb-4">
+
+    <h2>🛠 Área Técnica</h2>
+
+    <a href="/tecnico/novo"
+       class="btn btn-success">
+        Novo Arquivo
+    </a>
+
+</div>
+
+<div class="card shadow">
+
+    <div class="card-body">
+
+        <table class="table table-striped">
+
+            <thead>
+
+                <tr>
+                    <th>Título</th>
+                    <th>Categoria</th>
+                    <th>Fabricante</th>
+                    <th>Modelo</th>
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+            {% for a in arquivos %}
+
+                <tr>
+
+                    <td>{{ a.titulo }}</td>
+
+                    <td>{{ a.categoria }}</td>
+
+                    <td>{{ a.fabricante }}</td>
+
+                    <td>{{ a.modelo }}</td>
+
+                </tr>
+
+            {% endfor %}
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>
+
+{% endblock %}

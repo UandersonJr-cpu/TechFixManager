@@ -1,0 +1,83 @@
+{% extends "base.html" %}
+
+{% block titulo %}
+Clientes
+{% endblock %}
+
+{% block conteudo %}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+
+    
+
+    <a href="/clientes/novo" class="btn btn-success">
+        Novo Cliente
+    </a>
+
+</div>
+<form method="GET" class="mb-3">
+
+    <input
+        type="text"
+        name="busca"
+        placeholder="Buscar cliente..."
+        class="form-control">
+
+</form>
+<div class="card shadow">
+
+    <div class="card-body">
+
+        <table class="table table-striped table-hover">
+
+            <thead class="table-dark">
+
+                <tr>
+                    <th>ID</th>
+                    <th>Nome</th>
+                    <th>Email</th>
+                    <th>Telefone</th>
+                    <th>Ações</th>
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+            {% for c in clientes %}
+
+                <tr>
+
+                    <td>{{ c.id }}</td>
+
+                    <td>{{ c.nome }}</td>
+
+                    <td>{{ c.email }}</td>
+
+                    <td>{{ c.telefone }}</td>
+
+                    <td>
+
+                        <a href="/clientes/excluir/{{ c.id }}"
+                           class="btn btn-danger btn-sm"
+                           onclick="return confirm('Deseja realmente excluir este cliente?')">
+
+                            Excluir
+
+                        </a>
+
+                    </td>
+
+                </tr>
+
+            {% endfor %}
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>
+
+{% endblock %}

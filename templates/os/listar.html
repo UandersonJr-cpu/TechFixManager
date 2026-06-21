@@ -1,0 +1,145 @@
+{% extends "base.html" %}
+
+{% block titulo %}
+Ordens de Serviço
+{% endblock %}
+
+{% block conteudo %}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+
+
+
+    <a href="/os/nova" class="btn btn-success">
+        Nova OS
+    </a>
+
+</div>
+
+<div class="card shadow">
+
+    <div class="card-body">
+
+        <table class="table table-striped table-hover">
+
+            <thead class="table-dark">
+
+                <tr>
+                    <th>Nº OS</th>
+                    <th>Cliente</th>
+                    <th>Equipamento</th>
+                    <th>Status</th>
+                    <th>Valor</th>
+                    <th>Data</th>
+                    <th>Ações</th>
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+            {% for os in ordens %}
+
+                <tr>
+
+                    <td>#{{ os.id }}</td>
+
+                    <td>
+                        {{ Cliente.query.get(os.cliente_id).nome }}
+                    </td>
+
+                    <td>
+                        {{ Equipamento.query.get(os.equipamento_id).nome }}
+
+                        <br>
+
+                        <small class="text-muted">
+                            {{ Equipamento.query.get(os.equipamento_id).marca }}
+                            {{ Equipamento.query.get(os.equipamento_id).modelo }}
+                        </small>
+                    </td>
+
+                    <td>
+
+                        {% if os.status == "Recebido" %}
+                            <span class="badge bg-secondary">
+                                Recebido
+                            </span>
+
+                        {% elif os.status == "Em análise" %}
+                            <span class="badge bg-warning text-dark">
+                                Em análise
+                            </span>
+
+                        {% elif os.status == "Aguardando peça" %}
+                            <span class="badge bg-info text-dark">
+                                Aguardando peça
+                            </span>
+
+                        {% elif os.status == "Em reparo" %}
+                            <span class="badge bg-primary">
+                                Em reparo
+                            </span>
+
+                        {% elif os.status == "Pronto" %}
+                            <span class="badge bg-success">
+                                Pronto
+                            </span>
+
+                        {% elif os.status == "Entregue" %}
+                            <span class="badge bg-dark">
+                                Entregue
+                            </span>
+
+                        {% else %}
+                            <span class="badge bg-light text-dark">
+                                {{ os.status }}
+                            </span>
+                        {% endif %}
+
+                    </td>
+
+                    <td>
+                        R$ {{ "%.2f"|format(os.valor or 0) }}
+                    </td>
+
+                    <td>
+                        {{ os.data.strftime("%d/%m/%Y") }}
+                    </td>
+
+                    <td>
+
+                        <a href="/os/editar/{{ os.id }}"
+                           class="btn btn-warning btn-sm">
+                            Editar
+                        </a>
+
+                        <a href="/os/imprimir/{{ os.id }}"
+                           class="btn btn-primary btn-sm">
+                            Imprimir
+                        </a>
+<a href="/os/historico/{{ os.id }}"
+       class="btn btn-info btn-sm">
+        Histórico
+    </a>
+                    <a href="/os/excluir/{{ os.id }}"
+   class="btn btn-danger btn-sm"
+   onclick="return confirm('Deseja realmente excluir esta OS?')">
+    Excluir
+</a>
+
+                    </td>
+
+                </tr>
+
+            {% endfor %}
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>
+
+{% endblock %}

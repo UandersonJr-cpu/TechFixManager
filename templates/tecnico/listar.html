@@ -1,0 +1,121 @@
+{% extends "base.html" %}
+
+{% block titulo %}
+Área Técnica
+{% endblock %}
+
+{% block conteudo %}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+
+    
+
+    <a href="/tecnico/novo" class="btn btn-success">
+        Novo Arquivo
+    </a>
+
+</div>
+
+<form method="GET" class="mb-4">
+
+    <div class="input-group">
+
+        <input
+    type="text"
+    name="busca"
+    value="{{ request.args.get('busca', '') }}"
+    class="form-control"
+    placeholder="🔍 Buscar por fabricante, modelo, categoria ou título">
+
+        <button class="btn btn-primary">
+            Buscar
+        </button>
+
+    </div>
+
+</form>
+<div class="card shadow">
+
+    <div class="card-body">
+
+        <table class="table table-striped table-hover">
+
+            <thead class="table-dark">
+
+                <tr>
+                    <th>Título</th>
+                    <th>Categoria</th>
+                    <th>Fabricante</th>
+                    <th>Modelo</th>
+                    <th>Descrição</th>
+                    <th>Data</th>
+                    <th>Ações</th>
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+            {% for a in arquivos %}
+
+                <tr>
+
+                    <td>{{ a.titulo }}</td>
+
+                    <td>{{ a.categoria }}</td>
+
+                    <td>{{ a.fabricante }}</td>
+
+                    <td>{{ a.modelo }}</td>
+
+                    <td>{{ a.descricao }}</td>
+
+                    <td>
+                        {{ a.data.strftime("%d/%m/%Y") }}
+                    </td>
+
+                    <td>
+
+                        {% if a.arquivo %}
+
+                        <a
+                            href="{{ url_for('static', filename='tecnico/' + a.arquivo) }}"
+                            class="btn btn-primary btn-sm"
+                            target="_blank">
+
+                            Download
+
+                        </a>
+
+                        {% else %}
+
+                        <span class="text-danger">
+                            Sem arquivo
+                        </span>
+
+                        {% endif %}
+
+                        <a
+                            href="/tecnico/excluir/{{ a.id }}"
+                            class="btn btn-danger btn-sm"
+                            onclick="return confirm('Deseja excluir este arquivo?')">
+
+                            Excluir
+
+                        </a>
+
+                    </td>
+
+                </tr>
+
+            {% endfor %}
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>
+
+{% endblock %}

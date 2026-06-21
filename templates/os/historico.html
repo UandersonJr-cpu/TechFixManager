@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+
+{% block titulo %}
+Histórico da OS
+{% endblock %}
+
+{% block conteudo %}
+
+<h2>📜 Histórico da Ordem de Serviço</h2>
+
+<div class="card shadow">
+
+    <div class="card-body">
+
+        <table class="table table-striped">
+
+            <thead class="table-dark">
+                <tr>
+                    <th>Status</th>
+                    <th>Data</th>
+                </tr>
+            </thead>
+
+            <tbody>
+
+            {% for h in historicos %}
+
+                <tr>
+
+                    <td>{{ h.status }}</td>
+
+                    <td>
+                        {{ h.data.strftime("%d/%m/%Y %H:%M") }}
+                    </td>
+
+                </tr>
+
+            {% endfor %}
+
+            </tbody>
+
+        </table>
+
+       {% if current_user.tipo == "admin" %}
+
+<a href="/os" class="btn btn-secondary">
+    Voltar
+</a>
+
+{% else %}
+
+<a href="/minha-area" class="btn btn-secondary">
+    Voltar
+</a>
+
+{% endif %}
+
+    </div>
+
+</div>
+
+{% endblock %}

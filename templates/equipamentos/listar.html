@@ -1,0 +1,102 @@
+{% extends "base.html" %}
+
+{% block titulo %}
+Equipamentos
+{% endblock %}
+
+{% block conteudo %}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+
+    
+
+    {% if current_user.tipo == "admin" %}
+    <a href="/equipamentos/novo" class="btn btn-success">
+        Novo Equipamento
+    </a>
+    {% endif %}
+
+</div>
+<form method="GET" class="mb-3">
+
+    <input
+        type="text"
+        name="busca"
+        placeholder="Buscar produto..."
+        class="form-control">
+
+</form>
+<div class="card shadow">
+
+    <div class="card-body">
+
+        <table class="table table-striped table-hover">
+
+            <thead class="table-dark">
+    <tr>
+        <th>ID</th>
+        <th>Foto</th>
+        <th>Cliente</th>
+        <th>Produto</th>
+        <th>Marca</th>
+        <th>Modelo</th>
+        <th>Ações</th>
+    </tr>
+</thead>
+
+            <tbody>
+
+            {% for e in equipamentos %}
+
+                <tr>
+
+                    <td>{{ e.id }}</td>
+                    <td>
+
+{% if e.foto %}
+
+<img
+    src="{{ url_for('static', filename='uploads/' + e.foto) }}"
+    width="80">
+
+{% endif %}
+
+</td>
+
+                    <td>
+                        {% if e.cliente %}
+                            {{ e.cliente.nome }}
+                        {% else %}
+                            Sem cliente
+                        {% endif %}
+                    </td>
+
+                    <td>{{ e.nome }}</td>
+                    <td>{{ e.marca }}</td>
+                    <td>{{ e.modelo }}</td>
+
+                    {% if current_user.tipo == "admin" %}
+                    <td>
+
+                        <a href="/equipamentos/excluir/{{ e.id }}"
+                           class="btn btn-danger btn-sm"
+                           onclick="return confirm('Deseja realmente excluir este equipamento?')">
+                            Excluir
+                        </a>
+
+                    </td>
+                    {% endif %}
+
+                </tr>
+
+            {% endfor %}
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>
+
+{% endblock %}
